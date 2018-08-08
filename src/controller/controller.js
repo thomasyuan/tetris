@@ -82,12 +82,12 @@ class TetrisController extends Observer {
     this.view.renderPoints(point)
   }
 
-  onNextShapeChanged(shape) {
-    this.view.renderNextShape(shape, this.board.nextShape.colorCode)
+  onNextShapeChanged(shape, color) {
+    this.view.renderNextShape(shape, color)
   }
 
-  onShapeMoved(from, to) {
-    this.view.renderShape(from, to, this.board.shape.colorCode)
+  onShapeMoved(from, to, color) {
+    this.view.renderShape(from, to, color)
   }
 }
 

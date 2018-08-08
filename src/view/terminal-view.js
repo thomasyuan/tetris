@@ -7,12 +7,23 @@ const TetrisView = require('./tetris-view')
 
 class TerminalView extends TetrisView {
 
+  constructor() {
+    super()
+    this.colors = new Array(8)
+    this.colors[0] = 'red'
+    this.colors[1] = 'yellow'
+    this.colors[2] = 'blue'
+    this.colors[3] = 'green'
+    this.colors[4] = 'magenta'
+    this.colors[5] = 'cyan'
+    this.colors[6] = 'orange'
+  }
 
-  renderNextShape(shape, colorCode) {
+  renderNextShape(shape, color) {
     //console.log(`TerminalView renderNextShape: ${shape}`)
     canvas.moveTo(40, 3).background(false).write("Next Shape:")
     canvas.erase(40, 4, 48, 5)
-    shape.forEach((v) => canvas.moveTo(40 + v[0] * 2, 4 + v[1]).background(this.colors[colorCode]).write('  ').flush())
+    shape.forEach((v) => canvas.moveTo(40 + v[0] * 2, 4 + v[1]).background(this.colors[color]).write('  ').flush())
   }
 
   renderBoard(board) {
@@ -30,12 +41,12 @@ class TerminalView extends TetrisView {
 
   }
 
-  renderShape(from, to, colorCode) {
+  renderShape(from, to, color) {
     //console.log(`TetrisView renderShape from ${from} to ${to}`)
     if (from) {
       from.forEach((v) => canvas.erase(v[0] * 2, v[1], v[0] * 2 + 1, v[1]))
     }
-    to.reverse().forEach((v) => canvas.moveTo(v[0] * 2, v[1]).background(this.colors[colorCode]).write('  ').flush())
+    to.reverse().forEach((v) => canvas.moveTo(v[0] * 2, v[1]).background(this.colors[color]).write('  ').flush())
   }
 
   renderStatus(status) {

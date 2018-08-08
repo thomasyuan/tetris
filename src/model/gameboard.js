@@ -25,7 +25,7 @@ class GameBoard {
     this.initShapePosition()
     this.board = Array.from(new Array(this.width), () => new Array(this.height).fill(0))
     const pos = this.shape.shape().map((v) => [this.x + v[0], this.y + v[1]])
-    setTimeout(() => this.observer.onShapeMoved(null, pos), 1)
+    setTimeout(() => this.observer.onShapeMoved(null, pos, this.shape.colorCode))
     // console.log(`init board, width: ${this.width}, height: ${this.height}`)
     // console.log(this.board)
 
@@ -64,7 +64,7 @@ class GameBoard {
     const to = from.map((v) => [v[0] - 1, v[1]])
     this.x -= 1
     setTimeout(() => {
-      this.observer.onShapeMoved(from, to)
+      this.observer.onShapeMoved(from, to, this.shape.colorCode)
     })
   }
 
@@ -76,7 +76,7 @@ class GameBoard {
     const to = from.map((v) => [v[0] + 1, v[1]])
     this.x += 1
     setTimeout(() => {
-      this.observer.onShapeMoved(from, to)
+      this.observer.onShapeMoved(from, to, this.shape.colorCode)
     })
   }
 
@@ -94,7 +94,7 @@ class GameBoard {
     const to = this.shape.shape().map((v) => [this.x + v[0], this.y + v[1]])
     //console.log(to)
     setTimeout(() => {
-      this.observer.onShapeMoved(from, to)
+      this.observer.onShapeMoved(from, to, this.shape.colorCode)
     })
   }
 
@@ -126,7 +126,7 @@ class GameBoard {
     const to = from.map((v) => [v[0], v[1] + 1])
     this.y += 1
     setTimeout(() => {
-      this.observer.onShapeMoved(from, to)
+      this.observer.onShapeMoved(from, to, this.shape.colorCode)
     })
   }
 

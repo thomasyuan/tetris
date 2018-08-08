@@ -14,16 +14,12 @@ class GameBoardObserver {
     //console.log(`GameBoardObserver: Level changed to ${level}`)
   }
 
-  onNextShapeChanged(shape) {
+  onNextShapeChanged(shape, color) {
     //console.log(`GameBoardObserver: Next shape changed to ${shape}`)
   }
 
-  onShapeMoved(from, to) {
+  onShapeMoved(from, to, color) {
     //console.log(`GameBoardObserver: Shape moved from ${from} to ${to}`)
-  }
-
-  onRotateChanged(clockWise) {
-    //console.log(`GameBoardObserver: Rotate changed to ${clockWise ? 'Clockwise' : 'Anticlockwise'}`)
   }
 }
 
