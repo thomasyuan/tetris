@@ -93,6 +93,7 @@ class TetrisController extends Observer {
   onGameOver() {
     this.view.renderGameOver()
     this.stop()
+    process.exit(0)
   }
 }
 

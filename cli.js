@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict'
 
 const Controller = require('./src/controller/controller')

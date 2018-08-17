@@ -115,7 +115,7 @@ class GameBoard {
 
     for (const x of lines) {
       for (let i = x - 1; i >= 0; --i) {
-        this.board[i + 1] = Object.assign(this.board[i])
+        this.board[i + 1] = this.board[i].map((v) => v)
       }
       this.board[0].fill(0)
     }
