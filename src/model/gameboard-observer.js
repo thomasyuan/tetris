@@ -21,6 +21,10 @@ class GameBoardObserver {
   onShapeMoved(from, to, color) {
     //console.log(`GameBoardObserver: Shape moved from ${from} to ${to}`)
   }
+
+  onGameOver() {
+
+  }
 }
 
 module.exports = GameBoardObserver

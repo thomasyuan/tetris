@@ -10,7 +10,6 @@ class TetrisController extends Observer {
     super()
     this.board = new Board(this)
     this.view = view
-    this.interval = TIMER_INTERVAL
   }
 
   timeout() {
@@ -27,14 +26,6 @@ class TetrisController extends Observer {
 
   start(level = 1) {
     this.board.setLevel(level)
-
-    setTimeout(() => {
-      this.view.renderLevel(this.board.level)
-      this.view.renderPoints(this.board.points)
-      this.view.renderNextShape(this.board.nextShape.shape(), this.board.nextShape.colorCode)
-      this.view.renderBoard(this.board.board)
-    }, 0)
-
     this.initTimer()
   }
 
@@ -45,17 +36,13 @@ class TetrisController extends Observer {
   pause() {
     clearInterval(this.timer)
     this.paused = true
-    setTimeout(() => {
-      this.view.renderStatus('paused')
-    }, 0)
+    setTimeout(() => this.view.renderStatus('paused'))
   }
 
   resume() {
     this.initTimer()
     this.paused = false
-    setTimeout(() => {
-      this.view.renderStatus('')
-    }, 0)
+    setTimeout(() => this.view.renderStatus(''))
   }
 
   moveLeft() {
@@ -68,9 +55,14 @@ class TetrisController extends Observer {
     this.board.moveRight()
   }
 
-  moveDown() {
+  // moveDown() {
+  //   if (this.paused) return
+  //   this.board.moveDown()
+  // }
+
+  moveDown2Bottom() {
     if (this.paused) return
-    this.board.moveDown()
+    this.board.moveDown2Bottom()
   }
 
   rotate() {
@@ -82,6 +74,10 @@ class TetrisController extends Observer {
     this.view.renderPoints(point)
   }
 
+  onLevelChanged(level) {
+    this.view.renderLevel(level)
+  }
+
   onNextShapeChanged(shape, color) {
     this.view.renderNextShape(shape, color)
   }
@@ -89,7 +85,15 @@ class TetrisController extends Observer {
   onShapeMoved(from, to, color) {
     this.view.renderShape(from, to, color)
   }
-}
 
+  onBoardChanged(board) {
+    this.view.renderBoard(board)
+  }
+
+  onGameOver() {
+    this.view.renderGameOver()
+    this.stop()
+  }
+}
 
 module.exports = TetrisController

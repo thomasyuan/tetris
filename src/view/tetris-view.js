@@ -28,6 +28,10 @@ class TetrisView {
   renderStatus(status) {
     console.log(`TetrisView renderLevel: ${status}`)
   }
+
+  renderGameOver() {
+
+  }
 }
 
 module.exports = TetrisView

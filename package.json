@@ -1,13 +1,21 @@
 {
   "name": "tetris",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node cli.js"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomasyuan/tetris.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thomasyuan/tetris/issues"
+  },
+  "keywords": ["game"],
+  "author": "Thomas Yuan<thomas@cppcoder.net>",
+  "license": "MIT",
   "dependencies": {
     "terminal-canvas": "^2.1.0"
   }

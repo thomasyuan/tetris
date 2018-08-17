@@ -22,7 +22,7 @@ process.stdin.on('keypress', (str, key) => {
         c.rotate()
         break
       case 'down':
-        c.moveDown()
+        c.moveDown2Bottom()
         break
       case 'left':
         c.moveLeft()
