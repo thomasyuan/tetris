@@ -1,11 +1,10 @@
-'use strict'
+"use strict";
 
-const Shape = require('./shape')
+const Shape = require("./shape");
 
 class ShapeFactory {
-
   static newShape() {
-    return new Shape(this.getRandomInt(1, 7))
+    return new Shape(this.getRandomInt(1, 7));
   }
 
   static getRandomInt(min, max) {
@@ -13,4 +12,4 @@ class ShapeFactory {
   }
 }
 
-module.exports = ShapeFactory
+module.exports = ShapeFactory;

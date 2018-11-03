@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-
+/*eslint no-unused-vars: [0]*/
 class GameBoardObserver {
   onPointsChanged(point) {
     //console.log(`GameBoardObserver: Point changed to ${point}`)
@@ -22,9 +22,7 @@ class GameBoardObserver {
     //console.log(`GameBoardObserver: Shape moved from ${from} to ${to}`)
   }
 
-  onGameOver() {
-
-  }
+  onGameOver() {}
 }
 
-module.exports = GameBoardObserver
+module.exports = GameBoardObserver;

@@ -5,7 +5,9 @@
   "main": "cli.js",
   "bin": "cli.js",
   "scripts": {
-    "start": "node cli.js"
+    "start": "node cli.js",
+    "prettylint": "prettylint 'index.js' 'src/**/*.js'",
+    "lint": "eslint cli.js src"
   },
   "repository": {
     "type": "git",
@@ -14,10 +16,20 @@
   "bugs": {
     "url": "https://github.com/thomasyuan/tetris/issues"
   },
-  "keywords": ["game"],
+  "keywords": [
+    "game"
+  ],
   "author": "Thomas Yuan<thomas@cppcoder.net>",
   "license": "MIT",
   "dependencies": {
     "terminal-canvas": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "prettier": "^1.14.3",
+    "prettylint": "^1.0.0"
   }
 }
