@@ -1,15 +1,41 @@
 "use strict";
 
 const Board = require("../model/gameboard");
-const Observer = require("../model/gameboard-observer");
 
 const TIMER_INTERVAL = 1000;
 
-class TetrisController extends Observer {
+class TetrisController {
   constructor(view) {
-    super();
-    this.board = new Board(this);
+    this.board = new Board();
     this.view = view;
+
+    this.board.on("pointsChanged", point => {
+      this.view.renderPoints(point);
+    });
+
+    this.board.on("levelChanged", level => {
+      this.view.renderLevel(level);
+    });
+
+    this.board.on("boardChanged", board => {
+      this.view.renderBoard(board);
+    });
+
+    this.board.on("nextShapeChanged", (shape, color) => {
+      this.view.renderNextShape(shape, color);
+    });
+
+    this.board.on("shapeMoved", (from, to, color) => {
+      this.view.renderShape(from, to, color);
+    });
+
+    this.board.on("gameOver", () => {
+      this.view.renderGameOver();
+      this.stop();
+      process.exit(0);
+    });
+
+    this.board.init();
   }
 
   timeout() {
@@ -55,11 +81,6 @@ class TetrisController extends Observer {
     this.board.moveRight();
   }
 
-  // moveDown() {
-  //   if (this.paused) return
-  //   this.board.moveDown()
-  // }
-
   moveDown2Bottom() {
     if (this.paused) return;
     this.board.moveDown2Bottom();
@@ -68,32 +89,6 @@ class TetrisController extends Observer {
   rotate() {
     if (this.paused) return;
     this.board.rotate();
-  }
-
-  onPointsChanged(point) {
-    this.view.renderPoints(point);
-  }
-
-  onLevelChanged(level) {
-    this.view.renderLevel(level);
-  }
-
-  onNextShapeChanged(shape, color) {
-    this.view.renderNextShape(shape, color);
-  }
-
-  onShapeMoved(from, to, color) {
-    this.view.renderShape(from, to, color);
-  }
-
-  onBoardChanged(board) {
-    this.view.renderBoard(board);
-  }
-
-  onGameOver() {
-    this.view.renderGameOver();
-    this.stop();
-    process.exit(0);
   }
 }
 

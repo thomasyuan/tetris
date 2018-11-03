@@ -1,13 +1,11 @@
 "use strict";
 
 const Canvas = require("terminal-canvas");
-const TetrisView = require("./tetris-view");
 
 const canvas = new Canvas().reset().hideCursor();
 
-class TerminalView extends TetrisView {
+class TerminalView {
   constructor() {
-    super();
     this.colors = new Array(8);
     this.colors[0] = "black";
     this.colors[1] = "yellow";
@@ -20,7 +18,7 @@ class TerminalView extends TetrisView {
   }
 
   renderNextShape(shape, color) {
-    //console.log(`TerminalView renderNextShape: ${shape}`)
+    // console.log(`TerminalView renderNextShape: ${shape}`);
     canvas
       .moveTo(40, 3)
       .background(false)

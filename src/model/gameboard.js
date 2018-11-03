@@ -1,5 +1,6 @@
 "use strict";
 
+const EventEmitter = require("events");
 const ShapeFactory = require("./shape-factory");
 
 const WIDTH = 12;
@@ -7,12 +8,11 @@ const HEIGHT = 20;
 const LEVEL_UP_LINES = 40;
 const POINTS = [0, 10, 30, 60, 100];
 
-class GameBoard {
-  constructor(observer, width = WIDTH, height = HEIGHT) {
-    this.observer = observer;
+class GameBoard extends EventEmitter {
+  constructor(width = WIDTH, height = HEIGHT) {
+    super();
     this.width = width;
     this.height = height;
-    this.init();
   }
 
   init() {
@@ -25,40 +25,37 @@ class GameBoard {
     this.shape = ShapeFactory.newShape();
     this.initShapePosition();
     this.nextShape = ShapeFactory.newShape();
-    setTimeout(() =>
-      this.observer.onNextShapeChanged(
-        this.nextShape.coordinates(),
-        this.nextShape.colorCode
-      )
+    this.emit(
+      "nextShapeChanged",
+      this.nextShape.coordinates(),
+      this.nextShape.colorCode
     );
     this.setLevel(this.level);
-    setTimeout(() => this.observer.onPointsChanged(this.points));
+    this.emit("pointsChanged", this.points);
   }
 
   initShapePosition() {
     this.x = this.width / 2 - 1;
     this.y = 0;
     if (this.collisionDetection(this.x, this.y)) {
-      setTimeout(() => this.observer.onGameOver());
+      this.emit("gameOver");
       return;
     }
 
     const pos = this.shape
       .coordinates()
       .map(v => [this.x + v[0], this.y + v[1]]);
-    setTimeout(() =>
-      this.observer.onShapeMoved(null, pos, this.shape.colorCode)
-    );
+    this.emit("shapeMoved", null, pos, this.shape.colorCode);
   }
 
   setLevel(level) {
     this.level = level;
-    setTimeout(() => this.observer.onLevelChanged(this.level));
+    this.emit("levelChanged", this.level);
   }
 
   addPoint(point) {
     this.points += point;
-    setTimeout(() => this.observer.onPointsChanged(this.points));
+    this.emit("pointsChanged", this.points);
   }
 
   collisionDetection(x, y) {
@@ -89,9 +86,7 @@ class GameBoard {
       .map(v => [this.x + v[0], this.y + v[1]]);
     const to = from.map(v => [v[0] - 1, v[1]]);
     this.x -= 1;
-    setTimeout(() =>
-      this.observer.onShapeMoved(from, to, this.shape.colorCode)
-    );
+    this.emit("shapeMoved", from, to, this.shape.colorCode);
   }
 
   moveRight() {
@@ -103,9 +98,7 @@ class GameBoard {
       .map(v => [this.x + v[0], this.y + v[1]]);
     const to = from.map(v => [v[0] + 1, v[1]]);
     this.x += 1;
-    setTimeout(() =>
-      this.observer.onShapeMoved(from, to, this.shape.colorCode)
-    );
+    this.emit("shapeMoved", from, to, this.shape.colorCode);
   }
 
   rotate() {
@@ -123,10 +116,7 @@ class GameBoard {
     const to = this.shape
       .coordinates()
       .map(v => [this.x + v[0], this.y + v[1]]);
-    //console.log(to)
-    setTimeout(() =>
-      this.observer.onShapeMoved(from, to, this.shape.colorCode)
-    );
+    this.emit("shapeMoved", from, to, this.shape.colorCode);
   }
 
   solidShape() {
@@ -161,10 +151,7 @@ class GameBoard {
       if (lines > 0) {
         this.clearLines += lines;
         this.addPoint(POINTS[lines]);
-
-        setTimeout(() => {
-          this.observer.onBoardChanged(this.board.map(v => v));
-        });
+        this.emit("boardChanged", this.board.map(v => v));
       }
 
       if (this.clearLines > LEVEL_UP_LINES) {
@@ -176,11 +163,10 @@ class GameBoard {
       this.shape = this.nextShape;
       this.initShapePosition();
       this.nextShape = ShapeFactory.newShape();
-      setTimeout(() =>
-        this.observer.onNextShapeChanged(
-          this.nextShape.coordinates(),
-          this.nextShape.colorCode
-        )
+      this.emit(
+        "nextShapeChanged",
+        this.nextShape.coordinates(),
+        this.nextShape.colorCode
       );
       return;
     }
@@ -190,9 +176,7 @@ class GameBoard {
       .map(v => [this.x + v[0], this.y + v[1]]);
     const to = from.map(v => [v[0], v[1] + steps]);
     this.y += steps;
-    setTimeout(() =>
-      this.observer.onShapeMoved(from, to, this.shape.colorCode)
-    );
+    this.emit("shapeMoved", from, to, this.shape.colorCode);
   }
 
   moveDown2Bottom() {
