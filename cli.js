@@ -15,26 +15,26 @@ process.stdin.on("keypress", (str, key) => {
     process.exit();
   } else {
     switch (key.name) {
-    case "up":
-      c.rotate();
-      break;
-    case "down":
-      c.moveDown2Bottom();
-      break;
-    case "left":
-      c.moveLeft();
-      break;
-    case "right":
-      c.moveRight();
-      break;
-    case "space":
-      pause = !pause;
-      if (pause) {
-        c.pause();
-      } else {
-        c.resume();
-      }
-      break;
+      case "up":
+        c.rotate();
+        break;
+      case "down":
+        c.moveDown2Bottom();
+        break;
+      case "left":
+        c.moveLeft();
+        break;
+      case "right":
+        c.moveRight();
+        break;
+      case "space":
+        pause = !pause;
+        if (pause) {
+          c.pause();
+        } else {
+          c.resume();
+        }
+        break;
     }
   }
 });
